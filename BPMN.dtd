@@ -1,0 +1,114 @@
+<!ELEMENT definitions (collaboration, process, BPMNDiagram)>
+<!ATTLIST definitions
+    id ID #REQUIRED
+    targetNamespace CDATA #REQUIRED
+    xmlns:bpmn CDATA #IMPLIED
+    xmlns:bpmndi CDATA #IMPLIED
+    xmlns:dc CDATA #IMPLIED
+    xmlns:di CDATA #IMPLIED
+    xmlns:modeler CDATA #IMPLIED
+    exporter CDATA #IMPLIED
+    exporterVersion CDATA #IMPLIED
+    modeler:executionPlatform CDATA #IMPLIED
+    modeler:executionPlatformVersion CDATA #IMPLIED
+>
+
+<!ELEMENT collaboration (participant+)>
+<!ATTLIST collaboration id ID #REQUIRED>
+
+<!ELEMENT participant EMPTY>
+<!ATTLIST participant
+    id ID #REQUIRED
+    name CDATA #IMPLIED
+    processRef IDREF #REQUIRED
+>
+
+<!ELEMENT process (laneSet?, (startEvent | userTask | serviceTask | task | exclusiveGateway | endEvent | sequenceFlow)+)>
+<!ATTLIST process
+    id ID #REQUIRED
+    isExecutable (true | false) #IMPLIED
+>
+
+<!ELEMENT laneSet (lane+)>
+<!ATTLIST laneSet id ID #REQUIRED>
+
+<!ELEMENT lane (flowNodeRef*)>
+<!ATTLIST lane
+    id ID #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT flowNodeRef (#PCDATA)>
+
+<!ELEMENT startEvent (outgoing*)>
+<!ATTLIST startEvent
+    id ID #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT endEvent (incoming*)>
+<!ATTLIST endEvent
+    id ID #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT userTask (incoming*, outgoing*)>
+<!ATTLIST userTask
+    id ID #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT serviceTask (incoming*, outgoing*)>
+<!ATTLIST serviceTask
+    id ID #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT task (incoming*, outgoing*)>
+<!ATTLIST task
+    id ID #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT exclusiveGateway (incoming*, outgoing*)>
+<!ATTLIST exclusiveGateway
+    id ID #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT sequenceFlow EMPTY>
+<!ATTLIST sequenceFlow
+    id ID #REQUIRED
+    sourceRef IDREF #REQUIRED
+    targetRef IDREF #REQUIRED
+    name CDATA #IMPLIED
+>
+
+<!ELEMENT incoming (#PCDATA)>
+<!ELEMENT outgoing (#PCDATA)>
+
+<!ELEMENT BPMNDiagram (BPMNPlane)>
+<!ATTLIST BPMNDiagram id ID #REQUIRED>
+
+<!ELEMENT BPMNPlane (BPMNShape*)>
+<!ATTLIST BPMNPlane
+    id ID #REQUIRED
+    bpmnElement IDREF #REQUIRED
+>
+
+<!ELEMENT BPMNShape (Bounds, BPMNLabel?)>
+<!ATTLIST BPMNShape
+    id ID #REQUIRED
+    bpmnElement IDREF #REQUIRED
+    isMarkerVisible (true | false) #IMPLIED
+>
+
+<!ELEMENT BPMNLabel (Bounds)>
+
+<!ELEMENT Bounds EMPTY>
+<!ATTLIST Bounds
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    width CDATA #REQUIRED
+    height CDATA #REQUIRED
+>
